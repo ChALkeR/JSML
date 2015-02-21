@@ -60,6 +60,8 @@
         return this;
     };
 
+    jsml.filters = [];
+
     jsml.make = function (value) {
         return $(jsml.dom(value));
     };
@@ -74,6 +76,10 @@
 
         if (array.constructor === String)
             return document.createTextNode(array);
+
+        for (var p = 0; p < jsml.filters.length; p++)
+            jsml.filters[p](array);
+
         var el = document.createElement(array[0]);
 
         processContent(array, 1, el);
