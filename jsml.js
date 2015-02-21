@@ -62,6 +62,8 @@
 
     jsml.elements = {};
 
+    jsml.filters = [];
+
     jsml.make = function (value) {
         return $(jsml.dom(value));
     };
@@ -76,6 +78,9 @@
 
         if (array.constructor === String)
             return document.createTextNode(array);
+
+        for (var p = 0; p < jsml.filters.length; p++)
+            jsml.filters[p](array);
 
         if (jsml.elements.hasOwnProperty(array[0])) {
             var ex = jsml.elements[array[0]](array);
